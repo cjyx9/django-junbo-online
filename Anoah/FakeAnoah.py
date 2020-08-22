@@ -50,9 +50,20 @@ class User():
             f.write(pic.content)
         print(self.user_name + '的头像已保存到Temp文件夹')
 
-    def get_undo_homework(self):
-        """获取未完成的作业"""
+    def get_undo_homework_page(self):
+        """获取未完成的作业总页数"""
         homework_api = 'https://www.anoah.com/api/?q=json/ebag5/Homework/readHomework&info={"user_id":"' + self.user_id + '","type":1,"page":1,"class_id":"' + self.user_class_ids + '"}'
+        homework_count = json.loads(requests.get(homework_api).text)['recordset']['homework_count']
+        # 发送get请求
+        if homework_count <= 10:
+            return 1
+        else:
+            from math import ceil
+            return ceil(homework_count / 10)
+
+    def get_undo_homework(self, page_num):
+        """获取未完成的作业"""
+        homework_api = 'https://www.anoah.com/api/?q=json/ebag5/Homework/readHomework&info={"user_id":"' + self.user_id + '","type":1,"page":' + str(page_num) + ',"class_id":"' + self.user_class_ids + '"}'
         homework_json = json.loads(requests.get(homework_api).text)['recordset']
         # 发送get请求
         return homework_json

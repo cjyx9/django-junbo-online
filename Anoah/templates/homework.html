@@ -1,12 +1,41 @@
 {% extends "base.html" %}
+
 {% block title %}
-  <title>俊波在线-{{title}}</title>
+  <title>俊波在线-作业</title>
 {% endblock title %}
 {% block body %}
-  {{title}}
-  {{start_time}}
-  {{end_time}}
-  {{teacher}}
-  {{class_name}}
-  {{subject}}
+  {% if undo_homework.homework_count == 0 %}
+    <div class="jumbotron" style="padding: 20px;">
+      <h1>✌太棒了,你已经完成了所有作业!</h1>
+      <p>Well done! 现在让我们回到主页继续探索吧!</p>
+      <p><a class="btn btn-primary btn-lg" href="{% url 'index' %}" role="button">回到主页</a></p>
+    </div>
+  {% else %}
+  <div class="page-header" style="margin: 10px 20px;">
+    <h1>未完成作业列表</h1>
+  </div>
+    <ul class="list-group" style="padding: 10px 120px;">
+      {% for item in undo_homework.home_work %}
+        <a href="javascript:void(0)" class="list-group-item" style="padding: 15px; margin: 10px 0;">
+          <h4 class="list-group-item-heading">{{item.title}}</h4>
+          <p class="list-group-item-text">
+            作业布置者: {{item.teacher_name}}  作业学科: {{item.subject_name}} <br>
+            作业描述: {{item.description}} <br>
+            作业开始时间: {{item.start_name}} -> 作业结束时间: {{item.deadline}} <br>
+          </p>
+        </a>
+      {% endfor %}
+    </ul>
+    <nav>
+      <ul class="pager">
+        {% if page != '0' %}
+          <li><a href="{% url 'homework' %}?page={{page|add:'-1'}}">上一页</a></li>
+        {% endif %}
+        &nbsp;<li style="display: inline-block;"><p>第{{page|add:'1'}}页</p></li>&nbsp;
+        {% if page != pages_count %}
+          <li><a href="{% url 'homework' %}?page={{page|add:'1'}}">下一页</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
 {% endblock body %}

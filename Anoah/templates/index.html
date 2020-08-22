@@ -6,29 +6,16 @@
 
 {% block body %}
 {% if user.is_authenticated %}
-<div class="page-header">
+<!-- <div class="page-header">
   <h1>你好啊! {{name}}</h1>
-</div>
-
-<div class="panel panel-primary">
-  <!-- panel contents -->
-  <button type="button" class="panel-heading" id='hw_btn'
-    style="width: 100%;display: flex;justify-content: space-between;">
-    您未完成的优学派作业(最多显示10个): <span class="caret" style="margin-top: 8px;"></span>
-  </button>
-  {% if undo_homework.homework_count == 0 %}
-  <div class="panel-body" id='hw_list'>
-    <p>太棒了,你已经完成了所有作业!</p>
+</div> -->
+<div class="panel panel-primary" style="border-radius: 0%;">
+  <div class="panel-heading" style="padding: 20px 15px;border-radius: 0%;">作业模块</div>
+  <div class="panel-body" style="padding: 15px;">
+    <p>{{name}}同学,您目前有{{undo_homework_num}}个未完成的作业!</p>
+    <button class="btn btn-default" style="float: right;"><a href="/homework">查看</a></button>
   </div>
-  {% else %}
-  <!-- List group -->
-  <ul class="list-group" id='hw_list' style="display: block;">
-    {% for i in undo_homework.home_work %}
-    <button type="button" class="list-group-item"><a href="/homework?title={{i.title}}&end={{i.deadline}}&start={{i.start_time}}&teacher={{i.teacher_name}}&class={{i.class_name}}&subject={{i.subject_name}}">{{i.title}}</a></button>
-    {% endfor %}
-  </ul>
 </div>
-{% endif %}
 
 {% else %}
 <div class="jumbotron" style="padding: 30px 20px;margin: 30px auto;">
@@ -38,17 +25,4 @@
   <p><a class="btn btn-primary" href="/users/login" role="button">登录</a></p>
 </div>
 {% endif %}
-<script>
-  window.onload = function () {
-    var btn = document.getElementById('hw_btn');
-    var div = document.getElementById('hw_list');
-    btn.onclick = function () {
-      if (div.style.display == 'block') {
-        div.style.display = 'none';
-      } else {
-        div.style.display = 'block';
-      }
-    }
-  };
-</script>
 {% endblock body %}
