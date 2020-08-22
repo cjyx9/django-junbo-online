@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>俊波在线-注册</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'signin.css' %}" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="container">
+      <form class="form-signin" method="POST" action="/../../users/signin/">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">新用户注册</h2>
+        <input name="a" type="text" id="inputUsername" class="form-control" placeholder="用户名*" required autofocus>
+        <input name="b" type="text" id="inputRealname" class="form-control" placeholder="真名*" pattern="[\u4e00-\u9fa5]+" title="请输入你的名字" required>
+        <input name="c" type="password" id="inputPassword" class="form-control" placeholder="请输入密码*" minlength="8" required>
+        <input name="d" type="password" id="inputPasswordAgain" class="form-control" placeholder="重复密码*" minlength="8" required>
+        <hr>
+        <input name="e" type="text" id="inputAnoah" class="form-control" placeholder="优学派账号(e176xxxx)" pattern="e\d+" title="请输入正确的账号(如:e1765831)">
+        <input name="f" type="text" id="inputAeduuser" class="form-control" placeholder="亚教网账号(202x88xxxx)">
+        <input name="g" type="password" id="inputAedupassword" class="form-control" placeholder="亚教网密码">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+      </form>
+      {% if msg %}
+        <div class="alert alert-{{type}}" role="alert" style="max-width: 450px;margin:0 auto;">{{msg}}</div>
+      {% endif %}
+    </div>
+  </body>
+</html>

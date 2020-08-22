@@ -1,0 +1,14 @@
+.glyphicon {
+    top: 2.3px;
+}
+.badge {
+    padding: 2px 6px;
+}
+html{
+    -ms-overflow-style:none;
+    overflow:-moz-scrollbars-none;
+}
+
+::-webkit-scrollbar{
+    display:none;
+}

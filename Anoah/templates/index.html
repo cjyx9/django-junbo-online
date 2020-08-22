@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>俊波在线-首页</title>
+{% endblock title %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<div class="page-header">
+  <h1>你好啊! {{name}}</h1>
+</div>
+
+<div class="panel panel-primary">
+  <!-- panel contents -->
+  <button type="button" class="panel-heading" id='hw_btn'
+    style="width: 100%;display: flex;justify-content: space-between;">
+    您未完成的优学派作业(最多显示10个): <span class="caret" style="margin-top: 8px;"></span>
+  </button>
+  {% if undo_homework.homework_count == 0 %}
+  <div class="panel-body" id='hw_list'>
+    <p>太棒了,你已经完成了所有作业!</p>
+  </div>
+  {% else %}
+  <!-- List group -->
+  <ul class="list-group" id='hw_list' style="display: block;">
+    {% for i in undo_homework.home_work %}
+    <button type="button" class="list-group-item"><a href="/homework?title={{i.title}}&end={{i.deadline}}&start={{i.start_time}}&teacher={{i.teacher_name}}&class={{i.class_name}}&subject={{i.subject_name}}">{{i.title}}</a></button>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% else %}
+<div class="jumbotron" style="padding: 30px 20px;margin: 30px auto;">
+  <h1 style="font-size: xx-large; font-weight: normal;">Hello, 登陆后查看更多哦!</h1>
+  <p style="color: gray;">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+    featured content or information.empty empty empty</p>
+  <p><a class="btn btn-primary" href="/users/login" role="button">登录</a></p>
+</div>
+{% endif %}
+<script>
+  window.onload = function () {
+    var btn = document.getElementById('hw_btn');
+    var div = document.getElementById('hw_list');
+    btn.onclick = function () {
+      if (div.style.display == 'block') {
+        div.style.display = 'none';
+      } else {
+        div.style.display = 'block';
+      }
+    }
+  };
+</script>
+{% endblock body %}

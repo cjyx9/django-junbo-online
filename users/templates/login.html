@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>俊波在线-登录</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'login.css' %}" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <form class="form-signin" action="/../../users/login/" method="POST">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">请登录</h2>
+        <input type="text" id="inputUsername" class="form-control" placeholder="用户名" name="user" required autofocus>
+        <input type="password" id="inputPassword" class="form-control" placeholder="密码" name="password" required>
+        <div class="checkbox">
+          <a href="/../../users/signin/" class="sign">新用户？注册</a>
+          <label>
+            <input type="checkbox" value="remember-me"> 记住密码
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        <input type="hidden" name="next" value="/../../">
+      </form>
+      {% if msg %}
+        <div class="alert alert-{{type}}" role="alert" style="max-width: 450px;margin:0 auto;">{{msg}}</div>
+      {% endif %}
+    </div>
+  </body>
+</html>
