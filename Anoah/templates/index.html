@@ -5,24 +5,29 @@
 {% endblock title %}
 
 {% block body %}
-{% if user.is_authenticated %}
-<!-- <div class="page-header">
-  <h1>你好啊! {{name}}</h1>
-</div> -->
-<div class="panel panel-primary" style="border-radius: 0%;">
-  <div class="panel-heading" style="padding: 20px 15px;border-radius: 0%;">作业模块</div>
-  <div class="panel-body" style="padding: 15px;">
-    <p>{{name}}同学,您目前有{{undo_homework_num}}个未完成的作业!</p>
-    <button class="btn btn-default" style="float: right;"><a href="/homework">查看</a></button>
-  </div>
-</div>
-
-{% else %}
-<div class="jumbotron" style="padding: 30px 20px;margin: 30px auto;">
-  <h1 style="font-size: xx-large; font-weight: normal;">Hello, 登陆后查看更多哦!</h1>
-  <p style="color: gray;">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-    featured content or information.empty empty empty</p>
-  <p><a class="btn btn-primary" href="/users/login" role="button">登录</a></p>
-</div>
-{% endif %}
+  {% if user.is_authenticated %}
+    {% if undo_homework_num != 0 %}
+      <div class="panel panel-primary" style="border-radius: 0%;">
+        <div class="panel-heading" style="padding: 20px 15px;border-radius: 0%;">作业模块</div>
+        <div class="panel-body" style="padding: 15px;">
+          <p>{{name}}同学,您目前有{{undo_homework_num}}个未完成的作业!</p>
+          <a href="/homework" class="btn btn-default" style="float: right;">查看</a>
+        </div>
+      </div>
+    {% else %}
+    <div class="panel panel-primary" style="border-radius: 0%;">
+      <div class="panel-heading" style="padding: 20px 15px;border-radius: 0%;">作业模块</div>
+      <div class="panel-body" style="padding: 15px;">
+        <p>恭喜你!你已经完成了所有作业!</p>
+      </div>
+    </div>
+    {% endif %}
+  {% else %}
+    <div class="jumbotron" style="padding: 30px 20px;margin: 30px auto;">
+      <h1 style="font-size: xx-large; font-weight: normal;">Hello, 登陆后查看更多哦!</h1>
+      <p style="color: gray;">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+        featured content or information.empty empty empty</p>
+      <p><a class="btn btn-primary" href="/users/login" role="button">登录</a></p>
+    </div>
+  {% endif %}
 {% endblock body %}
