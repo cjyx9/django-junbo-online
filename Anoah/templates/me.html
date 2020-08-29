@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>我的</title>
+{% endblock title %}
+
+{% block body %}
+  {% if user.is_authenticated %}
+  {% else %}
+  <div class="jumbotron" style="padding: 30px 20px;margin: 30px auto;">
+    <h1 style="font-size: xx-large; font-weight: normal;">Hello, 登陆后查看更多哦!</h1>
+    <p style="color: gray;">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.empty empty empty</p>
+    <p><a class="btn btn-primary" href="/users/login" role="button">登录</a></p>
+  </div>
+  {% endif %}
+{% endblock body %}

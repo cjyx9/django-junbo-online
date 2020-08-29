@@ -22,6 +22,29 @@
       </div>
     </div>
     {% endif %}
+    <div style="display: flex;max-height: 500px;">
+      <div class="panel panel-primary" style="border-radius: 0%;width: 50%;margin: 4px;display: inline-block;">
+        <div class="panel-heading" style="padding: 20px 15px;border-radius: 0%;">近期已批改作业分数</div>
+        <div class="panel-body" style="padding: 15px;"><center>
+          {{plotdiv|safe}}
+        </center></div>
+        {{plotjs|safe}}
+      </div>
+      <div class="panel panel-primary" style="border-radius: 0%;width: 50%;margin: 4px;display: inline-block;">
+        <div class="panel-heading" style="padding: 20px 15px;border-radius: 0%;">占位</div>
+        <div class="panel-body" style="padding: 15px;">
+          <ul class="list-group" style="height: 380px; overflow:scroll">
+          {% for item in grade_info %}
+            {% if item.status %}
+              {% if item.result %}
+                <li class="list-group-item">{{item}}</li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+        </div>
+      </div>
+    </div>
   {% else %}
     <div class="jumbotron" style="padding: 30px 20px;margin: 30px auto;">
       <h1 style="font-size: xx-large; font-weight: normal;">Hello, 登陆后查看更多哦!</h1>

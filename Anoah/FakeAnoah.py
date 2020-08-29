@@ -151,3 +151,35 @@ class User():
         del_api = 'https://www.anoah.com/api/?q=json/ebag/Message/deleteAll&info={"message_id":' + str(id).replace("'", '"') + ',"user_id":"' + self.user_id + '"}'
         del_json = requests.get(del_api).text
         return del_json
+
+    def gen_image(self):
+        import numpy as np
+        import pandas as pd
+        import matplotlib.pyplot as plt
+        from bokeh.embed import components
+        from bokeh.models import ColumnDataSource
+        from bokeh.plotting import figure
+        from bokeh.transform import dodge
+        from bokeh.core.properties import value
+        line = self.analysis_grade()
+        xd = []
+        yd = []
+        ydt = []
+        for i in line:
+            if i['status'] and i['result']:
+                xd.append(i['subject'])
+                yd.append(i['result'])
+                ydt.append(i['classr'])
+        df = pd.DataFrame({'个人分数':yd,'班级平均':ydt}, index = xd)
+        source = ColumnDataSource(data=df) 
+        p = figure(x_range=xd, y_range=(0, 100), plot_height=350, title="分数统计",tools="")
+        p.vbar(x=dodge('index', -0.25, range=p.x_range), top='个人分数', width=0.2, source=source,color="#c9d9d3", legend=value("个人分数"))
+        p.vbar(x=dodge('index',  0.0,  range=p.x_range), top='班级平均', width=0.2, source=source,color="#718dbf", legend=value("班级平均"))
+        p.xgrid.grid_line_color = None
+        p.legend.location = "top_left"
+        p.legend.orientation = "horizontal"
+        script, div = components(p)
+        return script, div
+
+user = User('1765841')
+user.gen_image()
